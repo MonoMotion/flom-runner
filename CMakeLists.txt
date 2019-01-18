@@ -18,4 +18,6 @@ if(APPLE)
   set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 endif()
 
+include(cmake/compile-options.cmake)
+
 add_subdirectory(bin)
