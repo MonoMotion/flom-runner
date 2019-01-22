@@ -24,8 +24,8 @@ std::unordered_map<std::string, unsigned> joint_index = {
 };
 
 int main(int argc, char *argv[]) {
-  if (argc != 2) {
-    std::cerr << "Usage: " << argv[0] << " INPUT" << std::endl;
+  if (argc != 4) {
+    std::cerr << "Usage: " << argv[0] << " DEVICE EN_PIN INPUT" << std::endl;
     return -1;
   }
 
@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
     servos.emplace(name, ICSServo::Servo(io, idx));
   }
 
-  std::ifstream f(argv[1], std::ios::binary);
+  std::ifstream f(argv[3], std::ios::binary);
   auto const motion = flom::Motion::load(f);
 
   auto const start = std::chrono::system_clock::now();
