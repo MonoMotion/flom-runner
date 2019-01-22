@@ -14,7 +14,7 @@ std::unordered_map<std::string, unsigned> joint_index = {
   {"hip_joint_right_r", 4},
   {"hip_joint_right_p", 3},
   {"knee_right", 2},
-  {"angle_right_p", 1},
+  {"ankle_right_p", 1},
   {"ankle_right_r", 0},
   {"hip_joint_left_r", 5},
   {"hip_joint_left_p", 6},
@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
   }
 
   const std::string device {argv[1]};
-  const std::uint8_t en_pin {strtol(argv[2], nullptr, 0)};
+  const std::uint8_t en_pin {static_cast<std::uint8_t>(strtol(argv[2], nullptr, 0))};
 
   auto io = std::make_shared<ICSServo::IOProvider>(device, en_pin);
 
@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
 
     auto const frame = motion.frame_at(seconds.count());
     for (auto const& [name, pos] : frame.positions()) {
-      auto const servo = servos.at(name);
+      auto servo = servos.at(name);
       servo.set_position(pos);
     }
   }
