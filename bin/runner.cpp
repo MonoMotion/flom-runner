@@ -46,7 +46,7 @@ int main(int argc, char *argv[]) {
   while(true) {
     auto const now = std::chrono::system_clock::now();
     auto const t = now - start;
-    auto const seconds = std::chrono::duration_cast<std::chrono::seconds>(t);
+    auto const seconds = std::chrono::duration_cast<std::chrono::duration<double>>(t);
 
     auto const frame = motion.frame_at(seconds.count());
     for (auto const& [name, pos] : frame.positions()) {
