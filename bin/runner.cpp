@@ -16,11 +16,11 @@ std::unordered_map<std::string, unsigned> joint_index = {
   {"knee_right", 2},
   {"ankle_right_p", 1},
   {"ankle_right_r", 0},
-  {"hip_joint_left_r", 5},
-  {"hip_joint_left_p", 6},
+  {"hip_joint_left_r", 9},
+  {"hip_joint_left_p", 8},
   {"knee_left", 7},
-  {"ankle_left_p", 8},
-  {"ankle_left_r", 9},
+  {"ankle_left_p", 6},
+  {"ankle_left_r", 5},
 };
 
 int main(int argc, char *argv[]) {
