@@ -18,6 +18,9 @@ if(APPLE)
   set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 endif()
 
+find_package(servoarray 0.1 REQUIRED)
+include_directories(${SERVOARRAY_INCLUDE_DIR})
+
 include(cmake/compile-options.cmake)
 
 add_subdirectory(bin)
