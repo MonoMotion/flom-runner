@@ -25,6 +25,7 @@ find_package(flom 0.3 REQUIRED)
 include_directories(${flom_INCLUDE_DIR})
 
 include_directories(SYSTEM third_party/args)
+include_directories(SYSTEM third_party/toml11)
 
 include(cmake/compile-options.cmake)
 
