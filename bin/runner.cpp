@@ -79,7 +79,12 @@ void quit_handler(int) {
 }
 
 std::unordered_map<std::string, double> retrieve_offsets() {
-  std::ifstream ifs("sample.toml");
+  const char* home = std::getenv("HOME");
+  if (!home) {
+    return {};
+  }
+
+  std::ifstream ifs(std::string{home} + "/.flomrunner.toml");
   if (!ifs) {
     return {};
   }
