@@ -24,7 +24,7 @@ include_directories(${SERVOARRAY_INCLUDE_DIR})
 find_package(flom 0.3 REQUIRED)
 include_directories(${flom_INCLUDE_DIR})
 
-include_directories(third_party/args)
+include_directories(SYSTEM third_party/args)
 
 include(cmake/compile-options.cmake)
 

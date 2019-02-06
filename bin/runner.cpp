@@ -27,10 +27,10 @@ int main(int argc, char *argv[]) {
 
   try {
     argparser.ParseCLI(argc, argv);
-  } catch (args::Help){
+  } catch (const args::Help&){
     std::cout << argparser;
     return 0;
-  } catch (args::ParseError e){
+  } catch (const args::ParseError& e){
     std::cerr << e.what() << std::endl;
     std::cerr << argparser;
     return -1;
