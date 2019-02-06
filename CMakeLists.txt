@@ -21,6 +21,9 @@ endif()
 find_package(servoarray 0.1 REQUIRED)
 include_directories(${SERVOARRAY_INCLUDE_DIR})
 
+find_package(flom 0.3 REQUIRED)
+include_directories(${flom_INCLUDE_DIR})
+
 include(cmake/compile-options.cmake)
 
 add_subdirectory(bin)
