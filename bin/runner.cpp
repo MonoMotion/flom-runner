@@ -17,6 +17,7 @@ static std::atomic<bool> quit(false);
 
 void register_signal(int);
 void quit_handler(int);
+std::unordered_map<std::string, double> retrieve_offsets();
 
 int main(int argc, char *argv[]) {
   args::ArgumentParser argparser("Play the flom motion file on a real robot");
@@ -45,6 +46,8 @@ int main(int argc, char *argv[]) {
   register_signal(SIGQUIT);
   register_signal(SIGTERM);
 
+  auto offsets = retrieve_offsets();
+
   std::ifstream f(args::get(arg_motion), std::ios::binary);
   auto const motion = flom::Motion::load(f);
 
@@ -55,7 +58,7 @@ int main(int argc, char *argv[]) {
 
   for (auto const& [t, frame] : motion.frames(fps)) {
     for (auto const& [name, pos] : frame.positions()) {
-      servos.write(name, pos);
+      servos.write(name, offsets[name] + pos);
     }
 
     std::this_thread::sleep_for(std::chrono::duration<double>(fps));
@@ -73,4 +76,14 @@ void register_signal(int signal) {
 
 void quit_handler(int) {
   quit.store(true);
+}
+
+std::unordered_map<std::string, double> retrieve_offsets() {
+  std::ifstream ifs("sample.toml");
+  if (!ifs) {
+    return {};
+  }
+
+  auto const config = toml::parse(ifs);
+  return toml::find<std::unordered_map<std::string, double>>(config, "offsets");
 }
