@@ -14,7 +14,7 @@ endfunction()
 
 function(runner_add_bin target)
   add_executable(${target}_bin ${target}.cpp)
-  set_target_properties(${target}_bin PROPERTIES OUTPUT_NAME ${target})
+  set_target_properties(${target}_bin PROPERTIES OUTPUT_NAME flom-${target})
   runner_set_compile_options(${target}_bin)
   target_link_libraries(${target}_bin PRIVATE flom ${SERVOARRAY_LIBRARIES})
 endfunction()
