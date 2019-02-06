@@ -20,7 +20,7 @@ void register_signal(int);
 void quit_handler(int);
 
 int main(int argc, char *argv[]) {
-  args::ArgumentParser argparser("Run flom motion file on real robot");
+  args::ArgumentParser argparser("Play the flom motion file on a real robot");
   args::HelpFlag help(argparser, "help", "Print this help", {'h', "help"});
   args::Positional<std::string> arg_motion(argparser, "motion", "motion file");
   args::ValueFlag<double> arg_fps(argparser, "fps", "fps", {'f', "fps"});
@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
   }
 
   if(!arg_motion) {
-    std::cerr << "Specify the motion file to play" << std::endl;
+    std::cerr << "Error: Specify the motion file to play" << std::endl;
     std::cerr << argparser;
     return -1;
   }
