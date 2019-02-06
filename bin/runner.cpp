@@ -2,8 +2,6 @@
 #include <iomanip>
 #include <iostream>
 #include <chrono>
-#include <cstdint>
-#include <cstdlib>
 #include <thread>
 #include <atomic>
 #include <signal.h>
