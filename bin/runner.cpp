@@ -60,9 +60,9 @@ int main(int argc, char *argv[]) {
 
   for (auto const& [t, frame] : motion.frames(fps)) {
     for (auto const& [name, pos] : frame.positions()) {
-      if (ignore_unknown || servos.has_name(name)) {
+      if (servos.has_name(name)) {
         servos.write(name, offsets[name] + pos);
-      } else {
+      } else if (!ignore_unknown) {
         std::cerr << "Unknown joint \"" << name << "\"" << std::endl;
         return -1;
       }
