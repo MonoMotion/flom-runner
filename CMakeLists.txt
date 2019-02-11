@@ -18,14 +18,13 @@ if(APPLE)
   set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 endif()
 
-find_package(servoarray 0.1 REQUIRED)
+find_package(servoarray 0.8 REQUIRED)
 include_directories(${SERVOARRAY_INCLUDE_DIR})
 
 find_package(flom 0.3 REQUIRED)
 include_directories(${flom_INCLUDE_DIR})
 
 include_directories(SYSTEM third_party/args)
-include_directories(SYSTEM third_party/toml11)
 
 include(cmake/compile-options.cmake)
 
