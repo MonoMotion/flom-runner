@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
   args::HelpFlag help(argparser, "help", "Print this help", {'h', "help"});
   args::Positional<std::string> arg_motion(argparser, "motion", "motion file");
   args::ValueFlag<double> arg_fps(argparser, "fps", "fps", {'f', "fps"});
-  arg::Flag arg_ignore(argparser, "ignore", "Ignore unknown joint", {"ignore-unknown"});
+  args::Flag arg_ignore(argparser, "ignore", "Ignore unknown joint", {"ignore-unknown"});
 
   try {
     argparser.ParseCLI(argc, argv);
