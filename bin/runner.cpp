@@ -24,6 +24,7 @@ int main(int argc, char *argv[]) {
   args::HelpFlag help(argparser, "help", "Print this help", {'h', "help"});
   args::Positional<std::string> arg_motion(argparser, "motion", "motion file");
   args::ValueFlag<double> arg_fps(argparser, "fps", "fps", {'f', "fps"});
+  args::Flag arg_ignore(argparser, "ignore", "Ignore unknown joint", {"ignore-unknown"});
 
   try {
     argparser.ParseCLI(argc, argv);
@@ -52,13 +53,19 @@ int main(int argc, char *argv[]) {
   auto const motion = flom::Motion::load(f);
 
   double const fps = arg_fps ? args::get(arg_fps) : 0.01;
+  const bool ignore_unknown = args::get(arg_ignore);
 
   auto array = ServoArray::ServoArray();
   auto servos = ServoArray::ServoMap(array);
 
   for (auto const& [t, frame] : motion.frames(fps)) {
     for (auto const& [name, pos] : frame.positions()) {
-      servos.write(name, offsets[name] + pos);
+      if (servos.has_name(name)) {
+        servos.write(name, offsets[name] + pos);
+      } else if (!ignore_unknown) {
+        std::cerr << "Unknown joint \"" << name << "\"" << std::endl;
+        return -1;
+      }
     }
 
     std::this_thread::sleep_for(std::chrono::duration<double>(fps));
