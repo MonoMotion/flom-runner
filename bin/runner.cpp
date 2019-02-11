@@ -47,8 +47,6 @@ int main(int argc, char *argv[]) {
   register_signal(SIGQUIT);
   register_signal(SIGTERM);
 
-  auto offsets = retrieve_offsets();
-
   std::ifstream f(args::get(arg_motion), std::ios::binary);
   auto const motion = flom::Motion::load(f);
 
@@ -61,7 +59,7 @@ int main(int argc, char *argv[]) {
   for (auto const& [t, frame] : motion.frames(fps)) {
     for (auto const& [name, pos] : frame.positions()) {
       if (servos.has_name(name)) {
-        servos.write(name, offsets[name] + pos);
+        servos.write(name, pos);
       } else if (!ignore_unknown) {
         std::cerr << "Unknown joint \"" << name << "\"" << std::endl;
         return -1;
@@ -83,19 +81,4 @@ void register_signal(int signal) {
 
 void quit_handler(int) {
   quit.store(true);
-}
-
-std::unordered_map<std::string, double> retrieve_offsets() {
-  const char* home = std::getenv("HOME");
-  if (!home) {
-    return {};
-  }
-
-  std::ifstream ifs(std::string{home} + "/.flomrunner.toml");
-  if (!ifs) {
-    return {};
-  }
-
-  auto const config = toml::parse(ifs);
-  return toml::find<std::unordered_map<std::string, double>>(config, "offsets");
 }
