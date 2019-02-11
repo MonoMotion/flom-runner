@@ -11,7 +11,6 @@
 #include <servoarray/servomap.h>
 
 #include <args.hxx>
-#include <toml.hpp>
 
 static std::atomic<bool> quit(false);
 
